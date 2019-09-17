@@ -60,6 +60,11 @@ void Window::SwapBuffer() const
     glfwSwapBuffers( window );
 }
 
+int Window::GetKey( int key ) const
+{
+    return glfwGetKey( window, key );
+}
+
 Window::~Window()
 {
     glfwDestroyWindow(window);

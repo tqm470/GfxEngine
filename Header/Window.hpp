@@ -13,6 +13,7 @@ public:
     int GetHeight() const;
     bool ProcInput() const;
     void SwapBuffer() const;
+    int GetKey( int key ) const;
     ~Window();
 private:
     GLFWwindow* GetWindowPtr();

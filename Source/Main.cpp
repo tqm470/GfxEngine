@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
         );
 
         Texture tex( "Resources/textures/doge.png" );
-        TexModel quadrado( "Resources/models/piramid.model" );
+        TexModel quadrado( "Resources/models/cube.model" );
         Object objeto( quadrado );
 
         srand( time(NULL) );
@@ -49,10 +49,70 @@ int main( int argc, char* argv[] )
         static_cast<float>( janela.GetWidth() ) / static_cast<float>( janela.GetHeight() )
         , 0.1f, 100.0f );
 
+
+        //camera bullshit
+        // glm::vec3 camPos = glm::vec3( 0.0f, 0.0f, 3.0f );
+        // glm::vec3 camTarget = glm::vec3( 0.0f, 0.0f, 0.0f );
+        // glm::vec3 camDir = glm::normalize( camPos - camTarget );    
+        // glm::vec3 camRight = glm::normalize( glm::cross( glm::vec3( 0.0f, 1.0f, 0.0f ), camDir ) );
+        // glm::vec3 camUp = glm::cross( camDir, camRight );
+
+
+        glm::vec3 camPos = glm::vec3( 0.0f, 0.0f, 3.0f );
+        glm::vec3 camDir = glm::vec3( 0.0f, 0.0f, 0.0f );
+        
+
         //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         while( janela.ProcInput() )
         {
+            //camera stuff
+            view = glm::lookAt( camPos, camDir, glm::vec3( 0.0f, 1.0f, 0.0f ) );
+
+
+
             glfwPollEvents();
+            janela.ProcInput();
+            if(janela.GetKey( GLFW_KEY_UP ) == GLFW_PRESS )
+            {
+                camPos += glm::vec3( 0.0f, 0.0f, -1.0f );
+                camDir += glm::vec3( 0.0f, 0.0f, 1.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_DOWN ) == GLFW_PRESS )
+            {
+                camPos += glm::vec3( 0.0f, 0.0f, 1.0f );
+                camDir += glm::vec3( 0.0f, 0.0f, -1.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_LEFT ) == GLFW_PRESS )
+            {
+                camPos += glm::vec3( -0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( -0.1f, 0.0f, 0.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS )
+            {
+                camPos += glm::vec3( 0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( 0.1f, 0.0f, 0.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_A ) == GLFW_PRESS )
+            {
+                //camPos += glm::vec3( 0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( -0.1f, 0.0f, 0.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_D ) == GLFW_PRESS )
+            {
+                //camPos += glm::vec3( 0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( 0.1f, 0.0f, 0.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_W ) == GLFW_PRESS )
+            {
+                //camPos += glm::vec3( 0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( 0.0f, 0.1f, 0.0f );
+            }
+            if(janela.GetKey( GLFW_KEY_S ) == GLFW_PRESS )
+            {
+                //camPos += glm::vec3( 0.1f, 0.0f, 0.0f );
+                camDir += glm::vec3( 0.0f, -0.1f, 0.0f );
+            }
+
 
             {
                 //model = glm::rotate(model, (float)glfwGetTime() * glm::radians( 0.1f ), glm::vec3( 0.5f, 1.0f, 0.0f ) );
